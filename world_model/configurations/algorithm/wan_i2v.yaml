@@ -1,0 +1,22 @@
+defaults:
+  - wan_t2v
+  - _self_
+
+text_encoder:
+  ckpt_path: data/ckpts/Wan2.1-I2V-14B-480P/models_t5_umt5-xxl-enc-bf16.pth
+
+vae:
+  ckpt_path: data/ckpts/Wan2.1-I2V-14B-480P/Wan2.1_VAE.pth
+ 
+clip:
+  ckpt_path: data/ckpts/Wan2.1-I2V-14B-480P/models_clip_open-clip-xlm-roberta-large-vit-huge-14.pth
+  compile: true
+
+model:
+  ckpt_path: data/ckpts/Wan2.1-I2V-14B-480P
+  tuned_ckpt_path: data/ckpts/lvp_14B.ckpt  #data/ckpts/phase3_40000.ckpt
+  model_type: i2v
+  dim: 5120
+  ffn_dim: 13824
+  num_heads: 40
+  num_layers: 40

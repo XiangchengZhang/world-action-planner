@@ -1,0 +1,19 @@
+defaults:
+  - wan_i2v
+  - _self_
+
+text_encoder:
+  ckpt_path: null
+
+vae:
+  ckpt_path: null
+ 
+clip:
+  ckpt_path: null
+
+model:
+  ckpt_path: null
+  dim: 128
+  ffn_dim: 128
+  num_heads: 4
+  num_layers: 2

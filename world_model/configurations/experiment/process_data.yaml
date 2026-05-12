@@ -1,0 +1,29 @@
+defaults:
+  - base_experiment
+  - _self_
+
+tasks: [visualize_dataset]  # add the method names you want to run, e.g. [cache_prompt_embed]
+new_data_root: null # newly created csv and files will be saved here. null will defaults to the output_dir of this run.
+
+visualize_dataset:
+  n_samples: 32
+  disable_filtering: false
+  use_processed: true  # if true, will use processed videos from __getitem__ instead of raw files
+
+cache_prompt_embed:
+  batch_size: 32
+
+create_gemini_caption:
+  n_workers: 12
+
+run_hand_pose_estimation:
+  n_workers: 12 # not used
+
+run_human_detection:
+  total_workers: 2 # not used
+  job_id: 0
+  # save_dir: "outputs/"
+
+benchmark_dataloader:
+  batch_size: 4
+  num_workers: 8

@@ -1,0 +1,7 @@
+defaults:
+  - wan_at2v_base
+  - _self_
+
+diffusion_forcing:
+  cond_mode: concat
+  mode: independent_history

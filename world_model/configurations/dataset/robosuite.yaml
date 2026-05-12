@@ -1,0 +1,31 @@
+defaults:
+  - video_base
+  - _self_
+
+data_root: null # root directory of the dataset, should be a folder path that contains all the videos and metadata files. [fixme]
+metadata_path: null # path to the metadata csv file, should be a file path that points to a csv file containing video paths and corresponding metadata. [fixme]
+load_prompt_embed: true # whether to load a raw embed tensor instead of running language model online. Require a field `prompt_embed_path` in csv
+
+trim_mode: "random_cut" # one of ["speedup", "random_cut"], specify how do we handle a video that's too long
+pad_mode: "discard"
+
+id_token: "Generate a video of the robot"
+width: 448
+height: 448
+
+filtering:
+  disable: false
+
+download:
+  override_fps: 20
+
+n_frames: 41
+fps: 20
+action_dim: 7
+
+auto_download: false
+
+augmentation:
+  random_flip: null  # probability of random flip, null means no random flip
+  ratio: [1.0, 1.0] # random scaling of the aspect ratio, see torchvision.transforms.v2.RandomResizedCrop
+  scale: [1.0, 1.0] # random crop the video, see torchvision.transforms.v2.RandomResizedCrop

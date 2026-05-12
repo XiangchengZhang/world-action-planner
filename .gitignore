@@ -1,0 +1,14 @@
+.agents
+.codex
+*.hdf5
+*.mp4
+
+data
+
+__pycache__/
+*.pyc
+
+outputs
+huggingface
+
+*.egg-info/

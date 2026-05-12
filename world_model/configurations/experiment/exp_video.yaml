@@ -1,0 +1,41 @@
+defaults:
+  - base_pytorch
+  - _self_
+  
+tasks: [training]
+
+training:
+  lr: 1e-5
+  precision: bf16-mixed
+  batch_size: 4
+  max_epochs: -1
+  max_steps: 100_000
+  checkpointing:
+    every_n_train_steps: 100
+    every_n_epochs: null
+    save_weights_only: false
+    save_on_exception: false
+    save_last: link
+  optim:
+    accumulate_grad_batches: 4
+    gradient_clip_val: null
+  data:
+      num_workers: 12 # number of CPU threads for data preprocessing.
+
+validation:
+  precision: bf16-mixed
+  val_every_n_step: 2000
+  val_every_n_epoch: null
+  batch_size: 2
+  limit_batch: 8
+  data:
+    num_workers: 4 # number of CPU threads for data preprocessing, for validation.
+
+test:
+  precision: bf16-mixed
+  limit_batch: null
+  batch_size: 1
+  data:
+    num_workers: 1 # number of CPU threads for data preprocessing, for test.
+
+find_unused_parameters: False

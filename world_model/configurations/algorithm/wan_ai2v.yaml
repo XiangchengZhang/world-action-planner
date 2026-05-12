@@ -1,0 +1,13 @@
+defaults:
+  - wan_i2v
+  - _self_
+
+diffusion_forcing:
+  cond_mode: channel
+  mode: rand_history
+
+hist_len: 17
+# hist_steps: [0, 4, 8, 12, 16, 17, 18, 19, 20]
+# n_frames: 37
+# max_frames: ${dataset.n_frames}
+lang_guidance: 0.0

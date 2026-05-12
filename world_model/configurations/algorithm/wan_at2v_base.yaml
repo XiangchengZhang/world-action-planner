@@ -1,0 +1,11 @@
+defaults:
+  - wan_t2v
+  - _self_
+
+diffusion_forcing:
+  mode: independent_history
+
+hist_len: 21
+# max_frames: ${dataset.n_frames}
+lang_guidance: 0.0
+hist_guidance: 0.0

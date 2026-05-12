@@ -1,0 +1,10 @@
+data
+slurm_logs
+
+__pycache__/
+*.pyc
+
+outputs
+huggingface
+
+*.egg-info/
