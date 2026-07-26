@@ -4,6 +4,9 @@ This repository hosts the action-conditioned world models used in the **World Ac
 
 > The world model architecture is based on [Large Video Planner](https://github.com/buoyancy99/large-video-planner) and the [Diffusion Forcing Transformer](https://github.com/kwsong0113/diffusion-forcing-transformer)
 
+- [x] World model release and inference
+- [ ] Code for planning
+
 ## Setup
 
 ### 1. Create and activate the mamba environment for simulators and planning
