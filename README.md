@@ -35,7 +35,7 @@ pip install -e wm_client
 
 Follow the full setup guide in [`world_model/README.md`](world_model/README.md), including:
 - editable install for `world_model` in a separate env
-- checkpoint download
+- checkpoint download from [HF repo](https://huggingface.co/XiangchengZhang/world-action-planner)
 - Wan base file download
 - server startup
 
