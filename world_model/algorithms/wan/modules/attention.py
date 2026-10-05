@@ -162,18 +162,33 @@ def attention(
             version=fa_version,
         )
     else:
-        if q_lens is not None or k_lens is not None:
+        if window_size != (-1, -1):
             warnings.warn(
-                'Padding mask is disabled when using scaled_dot_product_attention. It can have a significant impact on performance.'
+                'Sliding window attention is not supported by scaled_dot_product_attention and will be ignored.'
             )
-        attn_mask = None
+        out_dtype = q.dtype
+        b, lq, lk = q.size(0), q.size(1), k.size(1)
 
+        # mask padded keys, matching flash_attention's varlen handling of k_lens;
+        # skip the mask when nothing is padded so SDPA can use its fused kernels
+        attn_mask = None
+        if k_lens is not None and bool((k_lens < lk).any()):
+            attn_mask = torch.arange(lk, device=k.device)[None, :] < k_lens.to(k.device)[:, None]
+            attn_mask = attn_mask[:, None, None, :]
+            if causal:
+                attn_mask = attn_mask & torch.ones(
+                    lq, lk, dtype=torch.bool, device=k.device).tril()
+                causal = False
+
+        if q_scale is not None:
+            q = q * q_scale
         q = q.transpose(1, 2).to(dtype)
         k = k.transpose(1, 2).to(dtype)
         v = v.transpose(1, 2).to(dtype)
 
         out = torch.nn.functional.scaled_dot_product_attention(
-            q, k, v, attn_mask=attn_mask, is_causal=causal, dropout_p=dropout_p)
+            q, k, v, attn_mask=attn_mask, is_causal=causal, dropout_p=dropout_p,
+            scale=softmax_scale)
 
         out = out.transpose(1, 2).contiguous()
-        return out
+        return out.type(out_dtype)

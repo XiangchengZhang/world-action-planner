@@ -126,6 +126,7 @@ status/
 
 **/**test** 
 **/**test**/
+!robomimic/utils/test_utils.py
 
 **dataset**/
 

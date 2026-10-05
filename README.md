@@ -39,7 +39,17 @@ Follow the full setup guide in [`world_model/README.md`](world_model/README.md),
 - Wan base file download
 - server startup
 
-### 5. Run the notebook for imagined actions
+### 5. Download the LIBERO demonstration dataset
+
+The notebook replays a demonstration from `libero_10` (the default task suite), so download it first:
+
+```bash
+cd environments/LIBERO
+python benchmark_scripts/download_libero_datasets.py --datasets libero_10 --use-huggingface
+cd ../..
+```
+
+### 6. Run the notebook for imagined actions
 
 After setup is complete (and the world model server is running), open and run:
 

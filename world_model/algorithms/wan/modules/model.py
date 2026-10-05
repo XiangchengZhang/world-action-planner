@@ -9,7 +9,7 @@ from torch.utils.checkpoint import checkpoint
 from diffusers.configuration_utils import ConfigMixin, register_to_config
 from diffusers.models.modeling_utils import ModelMixin
 from functools import partial
-from .attention import flash_attention
+from .attention import attention
 
 __all__ = ["WanModel", "WanAttentionBlock"]
 
@@ -162,7 +162,7 @@ class WanSelfAttention(nn.Module):
         q, k, v = qkv_fn(x)
         assert k.size(1) == seq_lens.max() == seq_lens.min()
 
-        x = flash_attention(
+        x = attention(
             # q=rope_apply(q, grid_sizes, freqs),
             # k=rope_apply(k, grid_sizes, freqs),
             q = freqs.apply(q, grid_sizes),
@@ -195,7 +195,7 @@ class WanT2VCrossAttention(WanSelfAttention):
         v = self.v(context).view(b, -1, n, d)
 
         # compute attention
-        x = flash_attention(q, k, v, k_lens=context_lens)
+        x = attention(q, k, v, k_lens=context_lens)
 
         # output
         x = x.flatten(2)
@@ -230,9 +230,9 @@ class WanI2VCrossAttention(WanSelfAttention):
         v = self.v(context).view(b, -1, n, d)
         k_img = self.norm_k_img(self.k_img(context_img)).view(b, -1, n, d)
         v_img = self.v_img(context_img).view(b, -1, n, d)
-        img_x = flash_attention(q, k_img, v_img, k_lens=None)
+        img_x = attention(q, k_img, v_img, k_lens=None)
         # compute attention
-        x = flash_attention(q, k, v, k_lens=context_lens)
+        x = attention(q, k, v, k_lens=context_lens)
 
         # output
         x = x.flatten(2)

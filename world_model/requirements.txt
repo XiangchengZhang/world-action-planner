@@ -10,7 +10,8 @@ diffusers==0.34.0
 accelerate==1.1.1
 tokenizers==0.21.4
 deepspeed==0.15.1  # Install with: DS_BUILD_UTILS=1 DS_BUILD_FUSED_ADAM=1 DS_BUILD_CPU_ADAM=1 pip install deepspeed
-#flash-attn==2.3.5  # Optional, for efficient attention. Install with: pip install flash-attn --no-build-isolation
+#flash-attn==2.3.5  # Optional, for efficient attention; falls back to torch SDPA when absent. Install with: pip install flash-attn --no-build-isolation
+# Note: for torch 2.6, the flash-attn v2.8.3 release wheels fail to import (undefined c10::Error symbol); use v2.7.4.post1 (cxx11abiFALSE).
 
 # Configuration & Logging
 hydra-core==1.3.2

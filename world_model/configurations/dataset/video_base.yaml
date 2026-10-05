@@ -1,0 +1,36 @@
+debug: ${debug}
+
+data_root: null
+metadata_path: null
+auto_download: false
+force_download: false
+test_percentage: 0.01
+
+height: 448
+width: 448
+n_frames: 41
+fps: 20
+id_token: Generate a video of the robot
+
+load_video_latent: false
+load_prompt_embed: true
+check_video_path: false
+trim_mode: random_cut
+pad_mode: discard
+max_text_tokens: ${algorithm.max_text_tokens}
+image_to_video: true
+
+filtering:
+  disable: false
+  height: [0, 4096]
+  width: [0, 4096]
+  fps: [0, 120]
+  n_frames: [0, 4096]
+
+download:
+  override_fps: 20
+
+augmentation:
+  random_flip: null
+  ratio: [1.0, 1.0]
+  scale: [1.0, 1.0]

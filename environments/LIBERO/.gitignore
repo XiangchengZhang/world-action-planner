@@ -17,7 +17,6 @@ logs/
 libero.egg-info/
 .vscode/
 
-*.png
 dataset*/
 test*
 
